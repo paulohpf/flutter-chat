@@ -9,39 +9,7 @@ void main() async {
 
   await Firebase.initializeApp();
 
-  final FirebaseAuth auth = FirebaseAuth.instance;
-
-  // auth.signInAnonymously();
-
-  // auth.authStateChanges().listen((User user) {
-  //   if (user == null) {
-  //     print('User is currently signed out!');
-  //   } else {
-  //     print('User is signed in!');
-  //   }
-  // });
-
-  // final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  // firestore.collection('messages').snapshots().listen((QuerySnapshot event) {
-  //   // ignore: avoid_function_literals_in_foreach_calls
-  //   event.docChanges.forEach((DocumentChange event) {
-  //     print(event.doc.id);
-  //     print(event.doc.data());
-  //   });
-  // });
-
-  // QuerySnapshot snapshot = await firestore.collection('messages').get();
-
-  // snapshot.docs.forEach((QueryDocumentSnapshot doc) {
-  //   print(doc.id);
-  //   print(doc.data());
-  //   print(doc.reference.update({'read': true}));
-  // });
-
-  // firestore.collection('messages').doc()
-  //     // ignore: always_specify_types
-  //     .set({'text': 'Hello World 2', 'from': 'Felipe Franco', 'read': false});
+  // final FirebaseAuth auth = FirebaseAuth.instance;
 }
 
 class MyApp extends StatelessWidget {

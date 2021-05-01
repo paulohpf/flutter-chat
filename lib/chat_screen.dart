@@ -11,10 +11,10 @@ class ChatScreen extends StatefulWidget {
   _ChatScreenState createState() => _ChatScreenState();
 }
 
+final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
 class _ChatScreenState extends State<ChatScreen> {
   void _sendMessage({String text, PickedFile imgFile}) async {
-    final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
     final Map<String, dynamic> data = <String, dynamic>{};
 
     if (imgFile != null) {
@@ -49,7 +49,37 @@ class _ChatScreenState extends State<ChatScreen> {
         title: const Text('Olá'),
         elevation: 0,
       ),
-      body: TextComposer(_sendMessage),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: firestore.collection('messages').snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                    return const Center(child: CircularProgressIndicator());
+
+                  default:
+                    final List<DocumentSnapshot> documents = snapshot.data.docs;
+
+                    return ListView.builder(
+                        itemCount: documents.length,
+                        reverse: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ListTile(
+                            title:
+                                Text(documents[index].data()['text'] as String),
+                          );
+                        });
+                }
+              },
+            ),
+          ),
+          TextComposer(_sendMessage),
+        ],
+      ),
     );
   }
 }
