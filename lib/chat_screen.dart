@@ -84,6 +84,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
       final UploadTask task = FirebaseStorage.instance
           .ref()
+          .child(_currentUser.uid)
           .child(DateTime.now().millisecondsSinceEpoch.toString())
           .putFile(file);
 
