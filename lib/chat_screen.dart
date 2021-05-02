@@ -57,6 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
       return userCredential.user;
     } catch (err) {
       print(err);
+      return null;
     }
   }
 
